@@ -6,10 +6,10 @@ return {
     config = function() 
         require('vgit').setup({
             keymaps = {
-                ['n <C-k>'] = function() require('vgit').hunk_up() end,
+                ['n <leader>gk'] = function() require('vgit').hunk_up() end,
                 {
                     mode = 'n',
-                    key = '<C-j>',
+                    key = '<leader>gj',
                     handler = 'hunk_down',
                     desc = 'Go down in the direction of the hunk',
                 },
