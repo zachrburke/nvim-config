@@ -23,10 +23,19 @@ return {
 						conflict  = "󰅙", -- or "C", "!", etc.
 					}
 				}
+			},
+			event_handlers = {
+				{
+					event = "git_status_changed",
+					handler = function(state)
+						require("neo-tree.sources.git_status").refresh(state)
+					end
+				}
 			}
 		})
 		vim.keymap.set("n", "<C-n>", ":Neotree toggle<CR>", {})
 		vim.keymap.set("n", "<leader>bf", ":Neotree buffers reveal float<CR>", {})
+		vim.keymap.set("n", "<leader>nf", ":Neotree reveal<CR>", {})
 	end,
 }
 

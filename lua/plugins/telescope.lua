@@ -19,6 +19,7 @@ return {
             vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
             vim.keymap.set("n", "<leader><leader>", builtin.oldfiles, {})
             vim.keymap.set('n', '<C-t>', builtin.lsp_document_symbols, {})
+            vim.keymap.set("n", "<leader>bb", builtin.buffers, {})
 
             require("telescope").load_extension("ui-select")
     end,
