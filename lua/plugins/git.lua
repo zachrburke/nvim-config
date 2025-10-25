@@ -1,6 +1,9 @@
 return {
     {
-        "lewis6991/gitsigns.nvim"
+        "lewis6991/gitsigns.nvim",
+        config = function ()
+            vim.keymap.set("n", "<leader>ph", ":Gitsigns preview_hunk<cr>")
+        end
     },
     {
         "NeogitOrg/neogit",
@@ -10,7 +13,7 @@ return {
             "nvim-telescope/telescope.nvim", -- optional
         },
         config = function ()
-            vim.keymap.set('n', '<leader>gd', ':DiffviewOpen<cr>')
+            vim.keymap.set('n', '<leader>gd', ':Neogit<cr>')
             require("diffview").setup({
               keymaps = {
                   file_panel = {
