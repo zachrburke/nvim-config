@@ -21,6 +21,11 @@ vim.keymap.set('i', '<c-l>', '<Right>')
 vim.keymap.set('n', '<leader>gn', ':bprevious<CR>')
 vim.keymap.set('n', '<leader>gb', ':bnext<CR>')
 
+-- Clear search highlighting
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
 vim.opt.clipboard = "unnamedplus"
 
 vim.opt.autoread = true
+vim.opt.swapfile = false
+vim.opt.winborder = 'rounded'
