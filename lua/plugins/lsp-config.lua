@@ -31,6 +31,7 @@ return {
             vim.keymap.set({"n", "v"}, "<leader>f", vim.lsp.buf.format, {})
             vim.keymap.set('n', '<leader>q', vim.diagnostic.setqflist, {})
             vim.keymap.set('n', '<leader>qe', function() vim.diagnostic.setqflist({severity = vim.diagnostic.severity.ERROR}) end, {})
+            vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, {})
         end,
     },
     {

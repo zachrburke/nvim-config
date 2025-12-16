@@ -28,10 +28,15 @@ return {
 				{
 					event = "git_status_changed",
 					handler = function(state)
-						require("neo-tree.sources.git_status").refresh(state)
+						-- Defer the refresh to avoid buffer modification errors
+						vim.schedule(function()
+							require("neo-tree.sources.git_status").refresh(state)
+						end)
 					end
 				}
-			}
+			},
+			-- Prevent neo-tree from trying to update during restricted operations
+			use_popups_for_input = false,
 		})
 		vim.keymap.set("n", "<C-n>", ":Neotree toggle<CR>", {})
 		vim.keymap.set("n", "<leader>bf", ":Neotree buffers reveal float<CR>", {})
