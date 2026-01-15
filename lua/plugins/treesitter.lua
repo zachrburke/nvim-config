@@ -23,5 +23,8 @@ return {
                 indent = { enable = true },
             })
         end
+    },
+    {
+        'aaronik/treewalker.nvim',
     }
 }

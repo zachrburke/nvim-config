@@ -22,6 +22,24 @@ return {
         "neovim/nvim-lspconfig",
         lazy = false,
         config = function()
+            -- Global on_attach to handle LSP client setup
+            local on_attach = function(client, bufnr)
+                -- Disable semantic tokens for clients that don't properly support them
+                if client.server_capabilities.semanticTokensProvider then
+                    -- Only enable if properly supported
+                    client.server_capabilities.semanticTokensProvider = nil
+                end
+            end
+
+            -- Set default config for all LSP servers
+            require("lspconfig.util").default_config = vim.tbl_extend(
+                "force",
+                require("lspconfig.util").default_config,
+                {
+                    on_attach = on_attach,
+                }
+            )
+
             vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
             vim.keymap.set("n", "<leader>gt", vim.lsp.buf.definition, {})
             vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
@@ -37,32 +55,8 @@ return {
     {
         "seblyng/roslyn.nvim",
         ft = { "cs", "razor" },
-        dependencies = {
-            {
-                -- By loading as a dependencies, we ensure that we are available to set
-                -- the handlers for Roslyn.
-                "tris203/rzls.nvim",
-                config = true,
-            },
-        },
         config = function()
-            local mason_registry = require("mason-registry")
-
-            local rzls_path = vim.fn.expand("$MASON/packages/rzls/libexec")
-            local cmd = {
-                "roslyn",
-                "--stdio",
-                "--logLevel=Information",
-                "--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.get_log_path()),
-                "--razorSourceGenerator=" .. vim.fs.joinpath(rzls_path, "Microsoft.CodeAnalysis.Razor.Compiler.dll"),
-                "--razorDesignTimePath=" .. vim.fs.joinpath(rzls_path, "Targets", "Microsoft.NET.Sdk.Razor.DesignTime.targets"),
-                "--extension",
-                vim.fs.joinpath(rzls_path, "RazorExtension", "Microsoft.VisualStudioCode.RazorExtension.dll"),
-            }
-
             vim.lsp.config("roslyn", {
-                cmd = cmd,
-                handlers = require("rzls.roslyn_handlers"),
                 capabilities = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), {
                     textDocument = {
                         onTypeFormatting = { dynamicRegistration = false },
@@ -116,6 +110,5 @@ return {
                 },
             })
         end,
-    }, 
-
+    }
 }

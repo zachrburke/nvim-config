@@ -12,14 +12,11 @@ vim.keymap.set('n', '<c-j>', ':wincmd j<CR>')
 vim.keymap.set('n', '<c-h>', ':wincmd h<CR>')
 vim.keymap.set('n', '<c-l>', ':wincmd l<CR>')
 
--- Insert mode cursor movement
--- vim.keymap.set('i', '<c-h>', '<Left>')
--- vim.keymap.set('i', '<c-j>', '<Down>')
--- vim.keymap.set('i', '<c-k>', '<Up>')
--- vim.keymap.set('i', '<c-l>', '<Right>')
-
-vim.keymap.set('n', '<leader>gn', ':bprevious<CR>')
-vim.keymap.set('n', '<leader>gb', ':bnext<CR>')
+-- treewalker movement
+vim.keymap.set({ 'n', 'v' }, '<leader>tk', '<cmd>Treewalker Up<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>tj', '<cmd>Treewalker Down<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>th', '<cmd>Treewalker Left<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>tl', '<cmd>Treewalker Right<cr>', { silent = true })
 
 -- Clear search highlighting
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
