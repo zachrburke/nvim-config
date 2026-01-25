@@ -50,6 +50,20 @@ return {
             vim.keymap.set('n', '<leader>q', vim.diagnostic.setqflist, {})
             vim.keymap.set('n', '<leader>qe', function() vim.diagnostic.setqflist({severity = vim.diagnostic.severity.ERROR}) end, {})
             vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, {})
+
+            vim.lsp.config("rust_analyzer", {
+                settings = {
+                    ["rust-analyzer"] = {
+                        workspace = {
+                            symbol = {
+                                search = {
+                                    scope = "workspace",
+                                },
+                            },
+                        },
+                    },
+                },
+            })
         end,
     },
     {
