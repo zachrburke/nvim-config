@@ -12,7 +12,8 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
         dependencies = {
-            "windwp/nvim-ts-autotag"
+            "windwp/nvim-ts-autotag",
+            "nvim-treesitter/nvim-treesitter-textobjects",
         },
         build = ":TSUpdate",
         config = function()
@@ -21,6 +22,16 @@ return {
                 auto_install = true,
                 highlight = { enable = true },
                 indent = { enable = true },
+                textobjects = {
+                    select = {
+                        enable = true,
+                        lookahead = true,
+                        keymaps = {
+                            ["af"] = "@function.outer", -- select function including signature
+                            ["if"] = "@function.inner", -- select function body only
+                        },
+                    },
+                },
             })
         end
     },

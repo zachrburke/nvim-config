@@ -8,6 +8,13 @@ return {
 	},
 	config = function()
 		require("neo-tree").setup({
+			filesystem = {
+				filtered_items = {
+					visible = true, -- Show hidden files by default
+					hide_dotfiles = false, -- Don't hide dotfiles (like .github)
+					hide_gitignored = true, -- But still hide gitignored files
+				},
+			},
 			default_component_configs = {
 				git_status = {
 					symbols = {
