@@ -22,6 +22,7 @@ return {
         "neovim/nvim-lspconfig",
         lazy = false,
         config = function()
+            vim.lsp.set_log_level("OFF")
             -- Global on_attach to handle LSP client setup
             local on_attach = function(client, bufnr)
                 -- Disable semantic tokens for clients that don't properly support them

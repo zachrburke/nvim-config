@@ -25,4 +25,8 @@ vim.opt.clipboard = "unnamedplus"
 
 vim.opt.autoread = true
 vim.opt.swapfile = false
+
+-- Set terminal title to folder name
+vim.opt.title = true
+vim.opt.titlestring = "%{fnamemodify(getcwd(), ':t')}"
 vim.opt.winborder = 'rounded'
