@@ -9,15 +9,30 @@ return {
 
         local last_command = nil
 
+        local function run_command(cmd)
+            local terms = require("toggleterm.terminal")
+            local term = terms.get(1)
+            if term and term:is_open() then
+                -- Send Ctrl+C to kill any running process
+                term:send("\x03", false)
+                -- Small delay to let the process terminate, then run new command
+                vim.defer_fn(function()
+                    require("toggleterm").exec(cmd)
+                end, 100)
+            else
+                require("toggleterm").exec(cmd)
+            end
+        end
+
         -- Send command to terminal (prompts if no previous command)
         vim.keymap.set('n', '<leader>r', function()
             if last_command then
-                require("toggleterm").exec(last_command)
+                run_command(last_command)
             else
                 vim.ui.input({ prompt = "Command: " }, function(cmd)
                     if cmd then
                         last_command = cmd
-                        require("toggleterm").exec(cmd)
+                        run_command(cmd)
                     end
                 end)
             end
@@ -28,7 +43,7 @@ return {
             vim.ui.input({ prompt = "Command: " }, function(cmd)
                 if cmd then
                     last_command = cmd
-                    require("toggleterm").exec(cmd)
+                    run_command(cmd)
                 end
             end)
         end, { desc = 'Run new command' })
