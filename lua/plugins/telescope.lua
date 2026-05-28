@@ -4,7 +4,6 @@ return {
     },
     {
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.5",
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             require("telescope").setup({
@@ -12,6 +11,13 @@ return {
                     find_files = {
                         hidden = true,
                         file_ignore_patterns = { "^%.git/" },
+                        path_display = function(_, path)
+                            local parts = vim.split(path, "/")
+                            if #parts > 4 then
+                                return table.concat({ unpack(parts, #parts - 3) }, "/")
+                            end
+                            return path
+                        end,
                     },
                 },
                 extensions = {
